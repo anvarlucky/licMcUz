@@ -54,10 +54,10 @@
                             <td class="darkblue-color text-center text-nowrap align-middle">{{$mauntaineering->licence_given_date}}</td>
                             <td class="darkblue-color text-center text-nowrap align-middle">{{$mauntaineering->organization_name}}</td>
                                 <td class="darkblue-color text-center text-nowrap align-middle"><a href="#">{{$mauntaineering->region_id}}</a></td>
-                                <td class="darkblue-color text-center text-nowrap align-middle">{{$mauntaineering->district_id}}</td>
+                                <td class="darkblue-color text-center text-nowrap align-middle"><a href="#">{{$mauntaineering->district_id}}</a></td>
+                                {{--<td class="darkblue-color text-center text-nowrap align-middle">@foreach($districts as $distric){{$distric->district}}@endforeach</td>--}}
                             <td class="darkblue-color text-center text-nowrap align-middle">{{$mauntaineering->organization_address}}</td>
-                            <td class="darkblue-color text-center text-nowrap align-middle">{{$mauntaineering->type_of_activity}}
-                            </td>
+                            <td class="darkblue-color text-center text-nowrap align-middle">{{$mauntaineering->type_of_activity}}</td>
                         </tr>
                     @endforeach
                     </tbody>

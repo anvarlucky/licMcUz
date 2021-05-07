@@ -22,4 +22,10 @@ class ExpeticeController extends ForApiController
         }
         return $this->responseSuccess(Expertice::select('*')->paginate($sum));
     }
+
+    public function allExpertice()
+    {
+        $expertice = Expertice::select('*')->get();
+        return $this->responseSuccess($expertice);
+    }
 }

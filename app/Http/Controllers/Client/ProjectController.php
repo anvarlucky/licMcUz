@@ -46,6 +46,7 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::select('*')->orderBy('licence_given_date', 'desc')->get();
+
         $client = new Client(['base_uri' => 'http://talim.mc.uz']);
         $region = $client->request('GET', 'api/reg/');
         $region = json_decode($region->getBody());

@@ -33,8 +33,8 @@ Route::get('expertice/{inn?}',[ExpeticeController::class,'index'])->name('expert
 Route::get('mountaineering',[MountaineeringController::class,'index'])->name('mountaineering');
 Route::get('mountaineeringAll/{sum?}/{cat}',[MountaineeringController::class,'all'])->name('mountaineeringAll');
 Route::get('mountaineering/{inn?}',[MountaineeringController::class,'index'])->name('mountaineering');
-
-Route::group(['prefix'=>'admin'],function (){
+Route::get('allExpertice', [ExpeticeController::class,'allExpertice'])->name('all');
+/*Route::group(['prefix'=>'admin'],function (){
     Route::resource('announcements',AnnouncementController::class);
     Route::resource('shaffofprojects',ShaffofProjectController::class);
-});
+});*/
