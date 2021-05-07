@@ -8,7 +8,7 @@ class AnnouncementController extends BaseControllerForClient
 {
     public function index()
     {
-        $response = $this->get('http://licence.loc/api/admin/announcements');
+        $response = $this->get('https://lic.mc.uz/api/admin/announcements');
         return view('admin.announcements.index',[
             'announcements' => $response->data
         ]);
@@ -16,7 +16,7 @@ class AnnouncementController extends BaseControllerForClient
 
     public function create()
     {
-        $response = $this->get('http://licence.loc/api/admin/shaffofprojects');
+        $response = $this->get('https://lic.mc.uz/api/admin/shaffofprojects');
         return view('admin.announcements.create',[
             'shaffofprojects' => $response->data,
         ]);
@@ -25,7 +25,7 @@ class AnnouncementController extends BaseControllerForClient
     public function store(Request $request)
     {
         $request = $request->except('_token');
-        $announcement = $this->put('http://licence.loc/api/admin/announcements',$request,true,'image');
+        $announcement = $this->put('https://lic.mc.uz/api/admin/announcements',$request,true,'image');
         if($announcement == true)
         {
             return redirect()->route('announcements.index');
