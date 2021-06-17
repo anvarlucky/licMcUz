@@ -24,10 +24,12 @@ class BaseControllerForClient extends Controller
     {
         $this->headers = [
             'Accept'        => 'application/json',
-            'Language'      => app()->getLocale(),
-            '_token' => csrf_token()
+            'Content-Type' =>   'application/json',
+            'Charset'      =>'utf-8',
+            //'Language'      => app()->getLocale(),
+            //'_token' => csrf_token()
         ];
-        $this->client = new Client(['base_uri' => config('app.api_url')]);
+        $this->client = new Client(['base_uri' => config('http://192.168.222.1:8193')]);
     }
 
     public function __construct2()

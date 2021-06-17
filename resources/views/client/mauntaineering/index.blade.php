@@ -53,8 +53,8 @@
                             <td class="darkblue-color text-center text-nowrap align-middle"><a href="{{route('mauntaineering.show',$mauntaineering->id)}}">{{$mauntaineering->licence_number}}</a></td>
                             <td class="darkblue-color text-center text-nowrap align-middle">{{$mauntaineering->licence_given_date}}</td>
                             <td class="darkblue-color text-center text-nowrap align-middle">{{$mauntaineering->organization_name}}</td>
-                                <td class="darkblue-color text-center text-nowrap align-middle"><a href="#">{{$mauntaineering->region_id}}</a></td>
-                                <td class="darkblue-color text-center text-nowrap align-middle">{{$mauntaineering->district_id}}</td>
+                                <td class="darkblue-color text-center text-nowrap align-middle"><a href="#">{{$regions}}</a></td>
+                                <td class="darkblue-color text-center text-nowrap align-middle">{{$districts}}</td>
                             <td class="darkblue-color text-center text-nowrap align-middle">{{$mauntaineering->organization_address}}</td>
                             <td class="darkblue-color text-center text-nowrap align-middle">{{$mauntaineering->type_of_activity}}
                             </td>
