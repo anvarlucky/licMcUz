@@ -9,7 +9,7 @@ class ShaffofProjectController extends BaseControllerForClient
 
     public function index()
     {
-        $response = $this->get('http://licence.loc/api/admin/shaffofprojects');
+        $response = $this->get('https://lic.mc.uz/api/admin/shaffofprojects');
         return view('admin.shaffofprojects.index',[
             'shaffofprojects' => $response->data
         ]);
@@ -23,7 +23,7 @@ class ShaffofProjectController extends BaseControllerForClient
     public function store(Request $request)
     {
         $request = $request->except('_token');
-        $response = $this->post('http://licence.loc/api/admin/shaffofprojects',$request);
+        $response = $this->post('https://lic.mc.uz/api/admin/shaffofprojects',$request);
         if($response ==true)
         {
             return redirect()->route('shaffofprojects.index');

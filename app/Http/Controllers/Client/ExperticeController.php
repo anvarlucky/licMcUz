@@ -9,7 +9,7 @@ use App\Models\District;
 use App\Http\Requests\ExpetiseRequest;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
-use App\Exports\experticesExport;
+use App\Exports\ExperticesExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ExperticeController extends Controller

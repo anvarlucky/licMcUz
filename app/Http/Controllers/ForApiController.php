@@ -17,15 +17,14 @@ class ForApiController extends Controller
         $this->headers = [
             'Access-Control-Allow-Origin' => '*',
             'Content-Type' => 'application/json',
+            'Content-Transfer-Encoding' => 'utf-8',
             'Language' => app()->getLocale(),
-            'Access-Control-Allow-Headers'=> 'Content-Type, X-Auth-Token, Origin'
+            'Access-Control-Allow-Headers'=> 'Content-Type,Content-Transfer-Encoding, X-Auth-Token, Origin'
         ];
     }
 
     public function responseSuccess($response){
         return response()->json([
-            'success' => true,
-            'lang' => app()->getLocale(),
             'data' => $response,
             'send_date'=>date(now())
         ])->withHeaders($this->headers);

@@ -44,13 +44,16 @@ class MountaineeringController extends Controller
     {
         $mauntaineeringes = Mountaineering::select('*')->orderBy('licence_given_date', 'desc')->get();
         $client = new Client(['base_uri' => 'http://talim.mc.uz']);
-        foreach ($mauntaineeringes as $maunt)
-        {
-            $district = $client->request('GET', 'api/dis-region/'.$maunt->district_id);
+        foreach ($mauntaineeringes as $mount){
+            $district = $mount->district_id;
+            $districts = $client->request('GET', 'api/dis-region/'.$district);
+            $districts = json_decode($districts->getBody());
         }
+        dump($districts);
         return view('client.mauntaineering.index',[
             'mauntaineeringes' => $mauntaineeringes,
-            'districts' => $district
+            'districts' => $districts->district,
+            'regions' => $districts->region
         ]);
     }
 
