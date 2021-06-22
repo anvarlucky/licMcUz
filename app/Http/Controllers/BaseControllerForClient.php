@@ -39,9 +39,9 @@ class BaseControllerForClient extends Controller
                 return Redirect::to('/')->send();
             }
             $this->headers = [
-                'Authorization' => 'Bearer '.session('access-token'),
+                //'Authorization' => 'Bearer '.session('access-token'),
                 'Accept'        => 'application/json',
-                'Language'      => app()->getLocale()
+                //'Language'      => app()->getLocale()
             ];
             return $next($request);
         });

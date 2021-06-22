@@ -26,11 +26,11 @@ class MountaineeringController extends ForApiController
             $mountaineering = Mountaineering::select('id as send_id','organization_name as license_name','organization_address as address','organization_phone as phone_number',
                 'organization_account_number as account_number','organization_email as e_adress','organization_inn as tin','organization_director as fio_director',
                 'licence_number as license_number','licence_given_date as license_date','end_date as license_term','license_direction as type_of_activity')->get();
-            //return $this->responseSuccess($mountaineering);
-            foreach ($mountaineering as $mount){
+            return $this->responseSuccess($mountaineering);
+            /*foreach ($mountaineering as $mount){
                 $request->send_id = $mount->send_id;
 
-            }
+            }*/
         }
     }
 
