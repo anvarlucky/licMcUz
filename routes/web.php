@@ -31,6 +31,8 @@ use App\Http\Controllers\Admin\ShaffofProjectController;
 Auth::routes(['register' => false]);
     //Route::get('/login',[LoginController::class, 'logout']);
     Route::match(['get','post'],'dsq',[DSQController::class,'index']);
+    Route::match(['get','post'],'dsq1',[DSQController::class,'dsq']);
+    Route::match(['get','post'],'dsq2',[DSQController::class,'test']);
     Route::resource('/organizations',OrganizationController::class);
     Route::resource('projects', ProjectController::class)->middleware(['web', 'auth']);
     Route::get('projects.Inn',[ProjectController::class,'createNew'])->name('pra');
