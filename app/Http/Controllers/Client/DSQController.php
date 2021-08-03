@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Client;
 
-use App\Http\Controllers\BaseControllerForClient;
 use App\Http\Controllers\Controller;
 use App\Models\Mountaineering;
 use Carbon\Carbon;
@@ -10,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use GuzzleHttp\Client;
 
-class DSQController extends BaseControllerForClient
+class DSQController extends Controller
 {
 
     protected const CODE_VALIDATION_SUCCESS = 200;
@@ -24,83 +23,115 @@ class DSQController extends BaseControllerForClient
     protected const CODE_ACCESS_DENIED = 403;
     protected $client;
 
-    public function __construct()
+
+    //410-son bo`yicha
+    public function mountaineering(Request $request)
     {
-        $this->headers = [
-            'Accept'        => 'application/json',
-            'Content-type'  => 'application/json'
-        ];
-        $this->client = new Client(['base_uri' => config('http://192.168.222.1:8193')]);
-    }
-
-    public function index(Request $request){
-       /* $client = new Client(['base_uri' => 'http://licence.loc']);
-        $response = $client->request('GET', 'api/mountaineering');
+        dd(time());
+        $clientGet = new Client(['base_uri' => 'http://lic.mc.uz']);
+        $response = $clientGet->request('GET', 'api/mountaineering');
         $mountes = json_decode($response->getBody());
-        foreach ($mountes->Body as $m) {*/
-            /*$request = json_encode($m);
-            $re = [
-                "send_id" => 1,
-                "send_date" => 1606471200000,
-                "license_name" => "String",
-                "address" => "String",
-                "phone_number" => 123456789,
-                "account_number" => 12345,
-                "e_adress" => "String",
-                "tin" => "String",
-                "pinfl" => 12345,
-                "fio_director" => "String",
-                "license_number" => 12345,
-                "license_date" => 1606471200000,
-                "license_term" => 1606471200000,
-                "type_of_activity" => "String",
-                "license_edit_asosDate" => "String",
-                "license_end_asosDate" => "String"
-            ];*/
-
-            $client = new Client([
-            'headers' => ['Accept'        => 'application/json', 'Content-Type' => 'application/json' ]
-            ]);
-
+        $client = new Client([
+            'headers' => ['Accept' => 'application/json', 'Content-Type' => 'application/json']
+        ]);
+        foreach ($mountes->Body as $mount){
             $response = $client->post('http://192.168.222.1:8193/api/ministry1',
-            ['body' => json_encode(
-                [
-                    "send_id"=>1,
-                    "send_date"=>1606471200000,
-                    "license_name"=>"String",
-                    "address"=>"String",
-                    "phone_number"=>123456789,
-                    "account_number"=>1234567891011121314,
-                    "e_adress"=>"String",
-                    "tin"=>"String",
-                    "pinfl"=>12345,
-                    "fio_director"=>"String",
-                    "license_number"=>02345,
-                    "license_date"=>1606471200000,
-                    "license_term"=>1606471200000,
-                    "type_of_activity"=>"String",
-                    "license_edit_asosDate"=>"String",
-                    "license_end_asosDate"=>"String"
-                ]
-            )]
-        );
+                ['body' => json_encode(
+                    [
+                        "send_id" => $mount->send_id,
+                        "send_date" => time() * 1000,
+                        "license_name" => $mount->license_name,
+                        "address" => $mount->address,
+                        //"phone_number" => $mount->phone_number,
+                        //"account_number" => $mount->account_number,
+                        "e_adress" => $mount->e_adress,
+                        "tin" => $mount->tin,
+                        "pinfl" => null,
+                        "fio_director" => $mount->fio_director,
+                        //"license_number"=>$mount->license_number,
+                        "license_date" => strtotime($mount->license_date)*1000,
+                        "license_term" => strtotime($mount->license_term)*1000,
+                        "type_of_activity" => $mount->type_of_activity,
+                        "license_edit_asosDate" => null,
+                        "license_end_asosDate" => null
+                    ]
+                )]
+            );
+           /* $re = $response->getBody()->getContents();
+            $js = json_decode($re);
+            dd($js);*/
+    }
         $re = $response->getBody()->getContents();
         $js = json_decode($re);
-        dd($js->success);
-            dd($response);
-            if($response->success==true){
-                echo "Kiritildi";
-            }
-            else{
-                echo "Qaytadan kodni tekshiring!";
-            }
-            $req = json_encode($re);
-            $dsqClient = new Client();
-            $res = $dsqClient->post('http://192.168.222.1:8193/api/ministry1', ['json' => $req, 'headers' => $this->headers]);
-            dd($res);
-            if ($res->getStatusCode()) {
-                return "success";
-            }
+        if ($js->success == true) {
+            echo "Kiritildi";
+        } else {
+            echo "Qaytadan kodni tekshiring!";
         }
+        $req = json_encode($re);
+        $dsqClient = new Client();
+        $res = $dsqClient->post('http://192.168.222.1:8193/api/ministry1', ['json' => $req, 'headers' => $this->headers]);
+        dd($res);
+        if ($res->getStatusCode()) {
+            return "success";
+        }
+    }
+
+    //381-son bo'yicha projects table
+    public function projects(Request $request){
+        dd(time());
+        $clientGet = new Client(['base_uri' => 'http://lic.mc.uz']);
+        $response = $clientGet->request('GET', 'api/mountaineering');
+        $mountes = json_decode($response->getBody());
+        $client = new Client([
+            'headers' => ['Accept' => 'application/json', 'Content-Type' => 'application/json']
+        ]);
+        foreach ($mountes->Body as $mount){
+            $response = $client->post('http://192.168.222.1:8193/api/ministry1',
+                ['body' => json_encode(
+                    [
+                        "send_id" => $mount->send_id,
+                        "send_date" => time() * 1000,
+                        "license_name" => $mount->license_name,
+                        "address" => $mount->address,
+                        //"phone_number" => $mount->phone_number,
+                        //"account_number" => $mount->account_number,
+                        "e_adress" => $mount->e_adress,
+                        "tin" => $mount->tin,
+                        "pinfl" => null,
+                        "fio_director" => $mount->fio_director,
+                        //"license_number"=>$mount->license_number,
+                        "license_date" => strtotime($mount->license_date)*1000,
+                        "license_term" => strtotime($mount->license_term)*1000,
+                        "type_of_activity" => $mount->type_of_activity,
+                        "license_edit_asosDate" => null,
+                        "license_end_asosDate" => null
+                    ]
+                )]
+            );
+            /* $re = $response->getBody()->getContents();
+             $js = json_decode($re);
+             dd($js);*/
+        }
+        $re = $response->getBody()->getContents();
+        $js = json_decode($re);
+        if ($js->success == true) {
+            echo "Kiritildi";
+        } else {
+            echo "Qaytadan kodni tekshiring!";
+        }
+        $req = json_encode($re);
+        $dsqClient = new Client();
+        $res = $dsqClient->post('http://192.168.222.1:8193/api/ministry1', ['json' => $req, 'headers' => $this->headers]);
+        dd($res);
+        if ($res->getStatusCode()) {
+            return "success";
+        }
+    }
+
+    //???
+    public function expertice(Request $request){
+
+    }
 
 }
