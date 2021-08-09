@@ -33,6 +33,7 @@ class CreateMountaineeringsTable extends Migration
             $table->string('difficulty_category');
             $table->text('license_direction');
             $table->integer('status')->default(1);
+            $table->integer('status_gnk')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

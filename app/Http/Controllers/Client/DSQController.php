@@ -27,13 +27,38 @@ class DSQController extends Controller
     //410-son bo`yicha
     public function mountaineering(Request $request)
     {
-        dd(time());
         $clientGet = new Client(['base_uri' => 'http://lic.mc.uz']);
         $response = $clientGet->request('GET', 'api/mountaineering');
         $mountes = json_decode($response->getBody());
         $client = new Client([
             'headers' => ['Accept' => 'application/json', 'Content-Type' => 'application/json']
         ]);
+        //!!!!! GNK serveri psda jonatiladigan danniylar to'g'ri!!!!
+        $response = $client->post('https://talim.mc.uz/api/ministry',
+            [
+               'body' => json_encode([
+                    "send_id"=>1,
+                    "send_date"=>1606471200000,
+                    "license_name"=>"String",
+                    "address"=>"String",
+                    "phone_number"=>1234567891011121314,
+                    "account_number"=>12345,
+                    "e_adress"=>"String",
+                    "tin"=>"String",
+                    "pinfl"=>12345,
+                    "fio_director"=>"String",
+                    "license_number"=>12345,
+                    "license_date"=>1606471200000,
+                    "license_term"=>1606471200000,
+                    "type_of_activity"=>"String",
+                    "license_edit_asosDate"=>"String",
+                    "license_end_asosDate"=>"String"
+               ])
+            ]);
+
+        $res1 = $response->getBody()->getContents();
+        dd($response->getStatusCode());
+        //dd($mountes);
         foreach ($mountes->Body as $mount){
             $response = $client->post('http://192.168.222.1:8193/api/ministry1',
                 ['body' => json_encode(
@@ -79,31 +104,31 @@ class DSQController extends Controller
 
     //381-son bo'yicha projects table
     public function projects(Request $request){
-        dd(time());
         $clientGet = new Client(['base_uri' => 'http://lic.mc.uz']);
-        $response = $clientGet->request('GET', 'api/mountaineering');
-        $mountes = json_decode($response->getBody());
+        $response = $clientGet->request('GET', 'api/projects');
+        $projects = json_decode($response->getBody());
+        dd($projects);
         $client = new Client([
             'headers' => ['Accept' => 'application/json', 'Content-Type' => 'application/json']
         ]);
-        foreach ($mountes->Body as $mount){
+        foreach ($projects->Body as $project){
             $response = $client->post('http://192.168.222.1:8193/api/ministry1',
                 ['body' => json_encode(
                     [
-                        "send_id" => $mount->send_id,
+                        "send_id" => $project->send_id,
                         "send_date" => time() * 1000,
-                        "license_name" => $mount->license_name,
-                        "address" => $mount->address,
-                        //"phone_number" => $mount->phone_number,
-                        //"account_number" => $mount->account_number,
-                        "e_adress" => $mount->e_adress,
-                        "tin" => $mount->tin,
+                        "license_name" => $project->license_name,
+                        "address" => $project->address,
+                        //"phone_number" => $project->phone_number,
+                        //"account_number" => $project->account_number,
+                        "e_adress" => $project->e_adress,
+                        "tin" => $project->tin,
                         "pinfl" => null,
-                        "fio_director" => $mount->fio_director,
-                        //"license_number"=>$mount->license_number,
-                        "license_date" => strtotime($mount->license_date)*1000,
-                        "license_term" => strtotime($mount->license_term)*1000,
-                        "type_of_activity" => $mount->type_of_activity,
+                        "fio_director" => $project->fio_director,
+                        //"license_number"=>$project->license_number,
+                        "license_date" => strtotime($project->license_date)*1000,
+                        "license_term" => strtotime($project->license_term)*1000,
+                        "type_of_activity" => $project->type_of_activity,
                         "license_edit_asosDate" => null,
                         "license_end_asosDate" => null
                     ]

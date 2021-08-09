@@ -26,7 +26,7 @@ class ForApiController extends Controller
     public function responseSuccess($response){
         return response()->json([
             'Body' => $response,
-            'send_date'=>date(now())
+            'send_date'=>time() * 1000
         ])->withHeaders($this->headers);
     }
 
