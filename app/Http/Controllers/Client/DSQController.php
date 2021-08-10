@@ -27,14 +27,14 @@ class DSQController extends Controller
     //410-son bo`yicha
     public function mountaineering(Request $request)
     {
-        $clientGet = new Client(['base_uri' => 'http://lic.mc.uz']);
+        $clientGet = new Client(['base_uri' => 'http://licence.loc']);
         $response = $clientGet->request('GET', 'api/mountaineering');
         $mountes = json_decode($response->getBody());
         $client = new Client([
             'headers' => ['Accept' => 'application/json', 'Content-Type' => 'application/json']
         ]);
         //!!!!! GNK serveri psda jonatiladigan danniylar to'g'ri!!!!
-        $response = $client->post('https://talim.mc.uz/api/ministry',
+/*        $response = $client->post('http://certificate.loc/api/ministry',
             [
                'body' => json_encode([
                     "send_id"=>1,
@@ -57,46 +57,48 @@ class DSQController extends Controller
             ]);
 
         $res1 = $response->getBody()->getContents();
-        dd($response->getStatusCode());
+        dd($response->getStatusCode());*/
         //dd($mountes);
         foreach ($mountes->Body as $mount){
-            $response = $client->post('http://192.168.222.1:8193/api/ministry1',
-                ['body' => json_encode(
-                    [
+            $response1 = $client->post('http://talim.mc.uz/api/ministry',
+                [
+                    'body' => json_encode([
                         "send_id" => $mount->send_id,
                         "send_date" => time() * 1000,
                         "license_name" => $mount->license_name,
                         "address" => $mount->address,
-                        //"phone_number" => $mount->phone_number,
-                        //"account_number" => $mount->account_number,
+                        "phone_number" => $mount->phone_number,
+                        "account_number" => $mount->account_number,
                         "e_adress" => $mount->e_adress,
                         "tin" => $mount->tin,
-                        "pinfl" => null,
+                        "pinfl" => "String",
                         "fio_director" => $mount->fio_director,
-                        //"license_number"=>$mount->license_number,
-                        "license_date" => strtotime($mount->license_date)*1000,
-                        "license_term" => strtotime($mount->license_term)*1000,
+                        "license_number"=>$mount->license_number,
+                        "license_date" => 1606471200000,
+                        "license_term" => 1606471200000,
                         "type_of_activity" => $mount->type_of_activity,
-                        "license_edit_asosDate" => null,
-                        "license_end_asosDate" => null
-                    ]
-                )]
-            );
+                        "license_edit_asosDate" => "String",
+                        "license_end_asosDate" => "String"
+                    ])
+                ]);
+            /*dd($response1);
+            $res1 = $response1->getBody()->getContents();
+        dd($response1->getStatusCode());*/
            /* $re = $response->getBody()->getContents();
             $js = json_decode($re);
             dd($js);*/
     }
-        $re = $response->getBody()->getContents();
-        $js = json_decode($re);
+        $re = $response1->getBody()->getContents();
+/*        $js = json_decode($re);
         if ($js->success == true) {
             echo "Kiritildi";
         } else {
             echo "Qaytadan kodni tekshiring!";
-        }
+        }*/
         $req = json_encode($re);
         $dsqClient = new Client();
-        $res = $dsqClient->post('http://192.168.222.1:8193/api/ministry1', ['json' => $req, 'headers' => $this->headers]);
-        dd($res);
+        $res = $dsqClient->post('http://certificate.loc/api/ministry', ['json' => $req, 'headers' => $this->client]);
+        dd($res->getBody());
         if ($res->getStatusCode()) {
             return "success";
         }
