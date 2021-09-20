@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Http\Controllers\BaseControllerForClient;
 use App\Http\Controllers\Controller;
 use App\Models\Mountaineering;
 use App\Models\Project;
@@ -10,103 +11,98 @@ use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use GuzzleHttp\Client;
+use function PHPUnit\Framework\isFalse;
 
-class DSQController extends Controller
+class DSQController extends BaseControllerForClient
 {
-
-    protected const CODE_VALIDATION_SUCCESS = 200;
-    protected const CODE_VALIDATION_ERROR = 422;
-    protected const CODE_MANY_REQUESTS = 429;
-    protected const CODE_SUCCESS_UPDATED = 202;
-    protected const CODE_SUCCESS_CREATED = 201;
-    protected const CODE_SUCCESS_DELETED = 202;
-    protected const CODE_UNAUTHORIZED = 401;
-    protected const CODE_NOTFOUND = 404;
-    protected const CODE_ACCESS_DENIED = 403;
-    protected $client;
-
-
-    //410-son bo`yicha mountaineering table
-    public function mountaineering(Request $request)
+    public function mountaineering()
     {
-        $clientGet = new Client(['base_uri' => 'http://licence.loc/']);
-        $response = $clientGet->request('GET', 'api/mountaineering');
-        $mountes = json_decode($response->getBody());
         $client = new Client([
             'headers' => ['Accept' => 'application/json', 'Content-Type' => 'application/json']
         ]);
-        //!!!!! GNK serveri psda jonatiladigan danniylar to'g'ri!!!!
-        foreach ($mountes->Body as $mount) {
-                $response1 = $client->post('http://certificate.loc/api/ministry1',
-                    [
-                        'body' => json_encode([
-                            "send_id" => $mount->send_id,
-                            "send_date" => time() * 1000,
-                            "license_name" => $mount->license_name,
-                            "address" => $mount->address,
-                            "phone_number" => str_replace([' ', '-'], '', $mount->phone_number),
-                            "account_number" => str_replace(' ', '', $mount->account_number),
-                            "e_adress" => $mount->e_adress,
-                            "tin" => str_replace(' ', '', $mount->tin),
-                            "pinfl" => null,
-                            "fio_director" => $mount->fio_director,
-                            "license_number" => $mount->license_number,
-                            "license_date" => strtotime($mount->license_date) * 1000,
-                            "license_term" => strtotime($mount->license_term) * 1000,
-                            "type_of_activity" => $mount->type_of_activity,
-                            "license_edit_asosDate" => null,
-                            "license_end_asosDate" => null
-                        ])
-                    ]);
-                if ($response1->getStatusCode() == 201) {
-                    Mountaineering::where('id',$mount->send_id)->update(['status_gnk' => 1]);
-                }
-                dump($mount->send_id . ' Yuborildi');
+        $mount = Mountaineering::select('id as send_id', 'organization_name as license_name', 'organization_address as address', 'organization_phone as phone_number',
+            'organization_account_number as account_number', 'organization_email as e_adress', 'organization_inn as tin', 'organization_director as fio_director',
+            'licence_number as license_number', 'licence_given_date as license_date', 'end_date as license_term', 'license_direction as type_of_activity', 'status_gnk')->where('status_gnk', null)
+            ->first();
+        $string = $mount->type_of_activity;
+        $m = mb_substr($string, 0, 95);
+        dump($mount->send_id);
+        dump($m);
+        dump($mount->send_id, $mount->license_name, $mount->license_number);
+        $response1 = $client->post('http://192.168.222.1:8193/api/ministry1',
+            ['body' => json_encode([
+                "send_id" => $mount->send_id,
+                "send_date" => time() * 1000,
+                "license_name" => str_replace(['"', "'"], '', $mount->license_name),
+                "address" => $mount->address,
+                "phone_number" => str_replace([' ', '-'], '', $mount->phone_number),
+                "account_number" => str_replace(' ', '', $mount->account_number),
+                "e_adress" => $mount->e_adress,
+                "tin" => str_replace(' ', '', $mount->tin),
+                "pinfl" => "",
+                "fio_director" => $mount->fio_director,
+                "license_number" => $mount->license_number,
+                "license_date" => strtotime($mount->license_date) * 1000,
+                "license_term" => strtotime($mount->license_term) * 1000,
+                "type_of_activity" => $m,
+                "license_edit_asosDate" => "",
+                "license_end_asosDate" => ""
+            ])
+            ]);
+        $ans = json_decode($response1->getBody());
+        if ($ans->success == true) {
+            dump($ans);
+            Mountaineering::where('id', $mount->send_id)->update(['status_gnk' => 1]);
+        } else {
+            dd($ans);
         }
+
     }
 
-    //381-son bo'yicha projects table
-    public function projects(Request $request){
-        $clientGet = new Client(['base_uri' => 'http://licence.loc']);
-        $response = $clientGet->request('GET', 'api/projects');
-        $projects = json_decode($response->getBody());
+    public function projects()
+    {
         $client = new Client([
             'headers' => ['Accept' => 'application/json', 'Content-Type' => 'application/json']
         ]);
-        foreach ($projects->Body as $project){
-            $response2 = $client->post('http://certificate.loc/api/ministry2',
-                ['body' => json_encode(
-                    [
-                        "send_id" => $project->send_id,
-                        "send_date" => time() * 1000,
-                        "license_name" => $project->license_name,
-                        "address" => $project->address,
-                        "phone_number" => str_replace([' ', '-'], '', $project->phone_number),
-                        "account_number" => str_replace(' ', '', $project->account_number),
-                        "e_adress" => $project->e_adress,
-                        "tin" => str_replace(' ', '', $project->tin),
-                        "pinfl" => null,
-                        "fio_director" => $project->fio_director,
-                        "license_number"=>$project->license_number,
-                        "license_date" => strtotime($project->license_date)*1000,
-                        //"license_term" => strtotime($project->license_term)*1000,
-                        "complexity_category" => $project->complexity_category,
-                        "type_of_activity" => $project->type_of_activity,
-                        "license_edit_asosDate" => null,
-                        "license_end_asosDate" => null
-                    ]
-                )]
-            );
-            if ($response2->getStatusCode()==201){
-                Project::where('id',$project->send_id)->update(['status_gnk' => 1]);
-                dump($project->send_id. ' Yuborildi');
+        $project = Project::select('id as send_id','region','district', 'organization_name as license_name', 'mid as ariza_number', 'organization_address as address', 'organization_phone as phone_number',
+            'organization_account_number as account_number', 'organization_email as e_adress', 'organization_inn as tin', 'organization_director as fio_director',
+            'licence_number as license_number', 'licence_given_date as license_date', 'difficulty_category as complexity_category', 'license_direction as type_of_activity',
+            'cause as license_edit_asos_date', 'cause as license_end_asos_date')->where('status_gnk', null)->take(5)->get();
+
+        foreach ($project as $project) {
+            $prr = str_replace([' ',"\r\n","\t",'-',';',"\n"], ' ', $project->type_of_activity);
+            $m = mb_substr($prr, 0, 2000);
+            $phone = str_replace([' ', '-','+','998','.'], ['','',' ',' 998',''], $project->phone_number);
+            $address = $project->region.' '.$project->district;
+            dump($project->send_id, $project->license_name, $project->license_number, $m,$phone);
+            $response2 = $client->post('http://192.168.222.1:8193/api/ministry2',
+                ['body' => json_encode([
+                    "send_id" => $project->send_id,
+                    "send_date" => time() * 1000,
+                    "license_name" => str_replace(['"', "'"], '', $project->license_name),
+                    "ariz_number" => $project->ariza_number,
+                    "address" => $address,
+                    "phone_number" => str_replace([' ', '-','+','998','.'], ['','',' ',' 998',''], $project->phone_number),
+                    "account_number" => str_replace(' ', '', $project->account_number),
+                    "e_adress" => $project->e_adress,
+                    "tin" => str_replace(' ', '', $project->tin),
+                    "pinfl" => "",
+                    "fio_director" => $project->fio_director,
+                    "license_number" => $project->license_number,
+                    "license_date" => strtotime($project->license_date) * 1000,
+                    "complexity_category" => str_replace(' ', '', $project->complexity_category),
+                    "type_of_activity" => $m,
+                    "license_edit_asos_date" => $project->license_edit_asos_date,
+                    "license_end_asos_date" => $project->license_end_asos_date
+                ])
+                ]);
+            $answer = json_decode($response2->getBody());
+            if ($answer->success == true) {
+                dump($answer);
+                Project::where('id', $project->send_id)->update(['status_gnk' => 1]);
+            } else {
+                dd($answer);
             }
         }
     }
-
-    //???
-    public function expertice(Request $request){
-
-    }
-
 }
