@@ -51,6 +51,7 @@ Auth::routes(['register' => false]);
     Route::post('mauntaineering.search', [MountaineeringController::class,'search'])->name('mauntaineering.search');
     Route::resource('/', HomeController::class)->middleware(['web', 'auth']);
     Route::group(['middleware' => ['web','auth'], 'prefix' => 'admin'], function (){
+        Route::get('users',[\App\Http\Controllers\Admin\UserController::class,'index']);
         Route::resource('announcements',AnnouncementController::class);
         Route::resource('shaffofprojects',ShaffofProjectController::class);
     });

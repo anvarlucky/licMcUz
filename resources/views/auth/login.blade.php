@@ -14,7 +14,7 @@
 
     <!-- Login Title Top block-section-->
     <div class="col-md-4 text-center px-5 pb-5">
-        <p class="login-title-text darkblue-color mb-5">Litsenziya berish timzimi</p>
+        <p class="login-title-text darkblue-color mb-5">Qurilish sohasida litsenziyaga ega korxona va tashkilotlar reestri</p>
     </div>
     <!-- Form Center block-section-->
     <div class="pt-4 pb-5 mb-5 px-4 align-items-center justify-content-center bg-white login-box">

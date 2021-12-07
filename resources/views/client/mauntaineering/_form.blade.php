@@ -64,7 +64,7 @@
     $( "#tin" ).change(function() {
         let data = $('#tin').val();
         $.ajax({
-            url: 'https://api.mc.uz/info-by-inn/' + data,
+            url: 'http://api.mc.uz/inn/get-origin/' + data,
             type: 'GET',
             success: function(data){
                 $('#acron_uz').val(data.acron_uz);
