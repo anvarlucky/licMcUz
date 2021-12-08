@@ -55,11 +55,6 @@
                                     </li>
                                     <li class="d-flex align-items-center justify-content-between">
                                         <div class="col-md-6">
-                                            <p class="account-info-title">
-                                                Litsenziya amal qilish muddati:
-                                            </p>
-                                        </div>
-                                        <div class="col-md-6">
                                             <p class="account-info-text">
                                                 {{$project->end_date}}
                                                 {{--{{\Carbon\Carbon::parse($student->starting_date)->format('d-m-Y')}}--}}
@@ -72,12 +67,12 @@
                                     <li class="d-flex align-items-center justify-content-between">
                                         <div class="col-md-6">
                                             <p class="account-info-title">
-                                                Litsenziya yangi raqami:
+                                                Ariza raqami:
                                             </p>
                                         </div>
                                         <div class="col-md-6">
                                             <p class="account-info-text">
-                                                {{$project->licence_number_new}}
+                                                {{$project->mid}}
                                             </p>
                                         </div>
                                     </li>
@@ -109,9 +104,6 @@
                             </div>
                         </div>
                         <div class="col-md-2">
-                            <div class="qr-code-box d-flex align-items-center justify-content-center">
-                                <img src="{{--{{$qrCode}}--}}" alt="QR Code" />
-                            </div>
 
                         </div>
                     </div>

@@ -39,9 +39,7 @@
                         <th class="darkblue-color text-center text-nowrap align-top">Litsenziya raqami</th>
                         <th class="darkblue-color text-center text-nowrap align-top">Litsenziya berilgan sana</th>
                         <th class="darkblue-color text-center text-nowrap align-top">Tashkilot nomi</th>
-                        <th class="darkblue-color text-center text-nowrap align-top">Tashkilot viloyati</th>
-                        <th class="darkblue-color text-center align-top">Tashkilot tumani</th>
-                        <th class="darkblue-color text-center text-nowrap align-top">Tashkilot adresi</th>
+                        <th class="darkblue-color text-center text-nowrap align-top">Tashkilot INN</th>
                         <th class="darkblue-color text-center align-top">Qiyinchilik kategoriyasi
                         </th>
                     </tr>
@@ -53,9 +51,7 @@
                             <td class="darkblue-color text-center text-nowrap align-middle"><a href="{{route('projects.show',$project->id)}}">{{$project->licence_number}}</a></td>
                             <td class="darkblue-color text-center text-nowrap align-middle">{{$project->licence_given_date}}</td>
                             <td class="darkblue-color text-center text-nowrap align-middle">{{$project->organization_name}}</td>
-                                <td class="darkblue-color text-center text-nowrap align-middle"><a href="#">{{$project->region_id??$project->region}}</a></td>
-                                <td class="darkblue-color text-center text-nowrap align-middle">{{$project->district_id??$project->district}}</td>
-                            <td class="darkblue-color text-center text-nowrap align-middle">{{$project->organization_address}}</td>
+                            <td class="darkblue-color text-center text-nowrap align-middle">{{$project->organization_inn}}</td>
                             <td class="darkblue-color text-center text-nowrap align-middle">{{$project->difficulty_category}}
                             </td>
                         </tr>

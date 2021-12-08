@@ -2,22 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="31de99bd-5f3d-4f97-8f3e-03df97a86f77" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/client/OrganizationController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Client/client/OrganizationController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/Organization.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2021_01_15_110646_create_organizations_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/client/organizations/_form.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/client/organizations/create.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/client/organizations/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/users/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/ExpeticeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/ExpeticeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/MountaineeringController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/MountaineeringController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/ProjectController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/ProjectController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BaseControllerForClient.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BaseControllerForClient.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Client/MountaineeringController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Client/MountaineeringController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ForApiController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ForApiController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/client/mauntaineering/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/client/mauntaineering/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/AuthController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/ProjectRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/ProjectRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/client/mauntaineering/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/client/mauntaineering/_form.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/client/projects/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/client/projects/_form.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/client/projects/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/client/projects/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/client/projects/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/client/projects/show.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />

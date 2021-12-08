@@ -30,7 +30,8 @@ use App\Http\Controllers\Admin\ShaffofProjectController;
 //Route::match(['get','post'],'/login',[AuthController::class,'login']);
 Auth::routes(['register' => false]);
     //Route::get('/login',[LoginController::class, 'logout']);
-    Route::match(['get','post'],'dsq',[DSQController::class,'index']);
+    Route::match(['get','post'],'dsq410',[DSQController::class,'mountaineering']);
+    Route::match(['get','post'],'dsq381',[DSQController::class,'projects']);
     Route::resource('/organizations',OrganizationController::class);
     Route::resource('projects', ProjectController::class)->middleware(['web', 'auth']);
     Route::get('projects.Inn',[ProjectController::class,'createNew'])->name('pra');
@@ -50,6 +51,7 @@ Auth::routes(['register' => false]);
     Route::post('mauntaineering.search', [MountaineeringController::class,'search'])->name('mauntaineering.search');
     Route::resource('/', HomeController::class)->middleware(['web', 'auth']);
     Route::group(['middleware' => ['web','auth'], 'prefix' => 'admin'], function (){
+        Route::get('users',[\App\Http\Controllers\Admin\UserController::class,'index']);
         Route::resource('announcements',AnnouncementController::class);
         Route::resource('shaffofprojects',ShaffofProjectController::class);
     });
