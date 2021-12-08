@@ -56,3 +56,6 @@ Auth::routes(['register' => false]);
         Route::resource('shaffofprojects',ShaffofProjectController::class);
     });
     Route::get('logout', [LoginController::class, 'logout']);
+
+
+    //ANVAR
