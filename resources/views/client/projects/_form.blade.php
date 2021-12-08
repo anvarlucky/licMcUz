@@ -7,10 +7,8 @@
     <label for="">Litsenziya berilgan sana</label>
     {{Form::date('licence_given_date', $project->licence_given_date??null, ['class' => 'form-control'])}}
 </div>
-<div class="form-group">
-    <label for="">Muddati</label>
-    {{Form::date('end_date', $project->end_date??null, ['class' => 'form-control'])}}
-</div>
+
+
 <div class="form-group">
     <label for="">Tashkilot INN</label>
     {{Form::text('organization_inn', $project->organization_inn??null, ['class' => 'form-control','id'=>'tin'])}}
@@ -23,30 +21,9 @@
     <label for="">Tashkilot telefon raqami</label>
     {{Form::text('organization_phone', $project->organization_phone??null, ['class' => 'form-control','id'=>'phone'])}}
 </div>
-<div class="form-group">
-    <label for="">Tashkilot e-maili</label>
-    {{Form::text('organization_email', $project->organization_email??null, ['class' => 'form-control','id'=>'email'])}}
-</div>
-<div class="form-group">
-    <label for="">Tashkilot viloyati</label>
-    {{Form::select('region_id', [__('')]+Arr::pluck($regions,'name_uz','id'),$project->region_id??null, ['class' => 'form-control','id' => 'category1'])}}
-</div>
-<div class="form-group">
-    <label for="">Tashkilot tuman/shahri</label>
-    {{Form::select('district_id', [__('')]+Arr::pluck($districts,'name_uz','id'),$project->district_id??null, ['class' => 'form-control subcat','disabled'=>'disabled', 'id'=>'category2', 'name'=>'category2'])}}
-</div>
-<div class="form-group">
-    <label for="">Tashkilot manzili</label>
-    {{Form::text('organization_address', $project->organization_address??null, ['class' => 'form-control','id'=>'addr'])}}
-</div>
-<div class="form-group">
-    <label for="">Tashkilot rahbari</label>
-    {{Form::text('organization_director', $project->organization_director??null, ['class' => 'form-control','id'=>'head_nm'])}}
-</div>
-<div class="form-group">
-    <label for="">Tashkilot Hisob raqami</label>
-    {{Form::text('organization_account_number', $project->organization_account_number??null, ['class' => 'form-control'])}}
-</div>
+
+
+{{Form::hidden('organization_account_number', 'null')}}
 <div class="form-group">
     <label for="">Litsenziya murakkablik darajasi</label>
     {{Form::select('difficulty_category', [''=>'','I' => 'I', 'II' => 'II', 'III' => 'III', 'IV' => 'IV'], $project->difficulty_category??null,['class' => 'form-control'])}}
@@ -55,20 +32,10 @@
     <label for="">Litsenziya yo'nalishlari</label>
     {{Form::textarea('license_direction', $project->license_direction??null, ['class' => 'form-control'])}}
 </div>
+
+
 <div class="form-group">
-    <label for="">Avvalgi Litsenziya raqami</label>
-    {{Form::text('licence_number_old', $project->licence_number_old??null, ['class' => 'form-control'])}}
-</div>
-<div class="form-group">
-    <label for="">Avvalgi Litsenziya berilgan sana</label>
-    {{Form::date('licence_given_date_old', $project->licence_given_date_old??null, ['class' => 'form-control'])}}
-</div>
-<div class="form-group">
-    <label for="">Sababi</label>
-    {{Form::text('cause', $project->cause??null, ['class' => 'form-control'])}}
-</div>
-<div class="form-group">
-    <label for="">MyGov ID</label>
+    <label for="">Ariza raqami</label>
     {{Form::text('mid', $project->mid??null, ['class' => 'form-control'])}}
 </div>
 <script>

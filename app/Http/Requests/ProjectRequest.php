@@ -27,10 +27,11 @@ class ProjectRequest extends FormRequest
             'licence_number' => 'required|unique:projects,licence_number',
             //'licence_number_new' => 'unique:projects,licence_number_new',
             'licence_given_date' => 'required',
-            'organization_inn' => 'required|unique:projects,organization_inn',
+            'organization_inn' => 'required',
+            'mid' => 'unique:projects,mid',
             //'organization_name' => 'required|unique:projects,organization_name',
             //'organization_phone' => 'required|unique:projects,organization_phone',
-            'organization_account_number' => 'required|unique:projects,organization_account_number',
+            //'organization_account_number' => 'required|unique:projects,organization_account_number',
             'license_direction' => 'required'
         ];
     }

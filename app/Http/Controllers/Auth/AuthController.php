@@ -10,6 +10,7 @@ class AuthController extends Controller
 {
     public function login(Request $request){
         $request = $request->except('_token');
+        dd($request);
         if ($request->isMethod('post'))
         {
             $request->email == User::select('email')->get();

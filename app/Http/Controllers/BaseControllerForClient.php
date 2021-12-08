@@ -51,7 +51,7 @@ class BaseControllerForClient extends Controller
     public function post($url, $request, $fileAttributes = []) {
 
         try {
-            $response = $this->client->request('POST', $url, ['form_params' => $request, 'headers' => $this->headers]);
+            $response = $this->client->request('POST', $url, ['json' => $request, 'headers' => $this->headers]);
 
             if($response->getStatusCode() == self::CODE_VALIDATION_SUCCESS || $response->getStatusCode() == self::CODE_SUCCESS_UPDATED || $response->getStatusCode() == self::CODE_SUCCESS_CREATED) {
                 return json_decode($response->getBody());

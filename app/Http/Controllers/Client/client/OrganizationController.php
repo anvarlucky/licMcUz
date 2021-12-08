@@ -11,6 +11,7 @@ class OrganizationController extends BaseControllerForClient
     public function index()
     {
         $orgs = $this->get('http://orgs.loc/api/orgs');
+        dd($orgs);
         return view('client.organizations.index',[
             'orgs' => $orgs->data
         ]);
